@@ -52,15 +52,7 @@ def load_common(file, abbrv='C', verbose=False, **params):
     loaded = loaded.drop(['geno'], axis=1)
     return loaded
 
-a = load_ancestry('C:/Data/DNA/AncestryDNA.txt', "Ancestry", True)
-a.head()
-a2 = load_ancestry2('C:/Data/DNA/AncestryDNA.txt', "Ancestry", True)
-a2.head()
-b = load_common('C:/Data/DNA/23andme.txt', '23&me', True)
-b.head()
-c = load_common('C:/Data/DNA/LivingDNA.txt', 'LivingDNA', True)
-c.head()
-combined = pd.concat([a, b, c])
-grouped = combined.groupby('position').agg({'rsid': 'first', 'chrome': 'first', 'position': 'first', 'name': " ".join, 'A': 'mean', 'C': 'mean', 'G': 'mean', 'T': 'mean'})
-
-grouped[grouped.chrome == 12]
+ancestry = load_ancestry('./AncestryDNA.txt', "Ancestry", True)
+twenty3andme = load_common('./23andme.txt', '23&me', True)
+living = load_common('./LivingDNA.txt', 'LivingDNA', True)
+combined = pd.concat([ancestry, twenty3andme, living])
